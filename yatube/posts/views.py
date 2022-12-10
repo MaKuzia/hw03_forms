@@ -1,9 +1,7 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.shortcuts import redirect
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404, render, redirect
 
 from .forms import PostForm
 from .models import Group, Post
