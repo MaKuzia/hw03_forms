@@ -17,6 +17,6 @@ class PostForm(forms.ModelForm):
 
     def clean_text(self):
         data = self.cleaned_data['text']
-        if data == '':
+        if data.isdigit() or data.isspace():
             raise forms.ValidationError('А кто поле будет заполнять, Пушкин?')
         return data
