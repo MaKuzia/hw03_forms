@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render, redirect
 
@@ -58,7 +59,7 @@ def post_detail(request, post_id):
     }
     return render(request, template, context)
 
-
+@login_required
 def post_create(request):
     form = PostForm
     template = 'posts/create_post.html'
@@ -76,7 +77,7 @@ def post_create(request):
     form = PostForm()
     return render(request, template, {'form': form})
 
-
+@login_required
 def post_edit(request, post_id):
     current_post = get_object_or_404(Post, pk=post_id)
     template = 'posts/create_post.html'
