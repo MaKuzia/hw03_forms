@@ -1,31 +1,33 @@
 <article>
-  <ul>
-    <li>
-      {% if post.author.get_full_name %}
-      Автор: {{ post.author.get_full_name }}
-      {% else %}
-      Username: {{ post.author}}
-      {% endif %} 
-    </li>
-    <li>
-      {% if post.group %}
-      Группа: {{ post.group }}
-      {% else %}
-      Группа:
+  <article>
+    <ul>
+      {% if name %}
+        <li>
+          {% if post.author.get_full_name %}
+            Автор: {{ post.author.get_full_name }}
+          {% else %}
+            Username: {{ post.author}}
+          {% endif %} 
+        </li>
       {% endif %}
-    </li>
-    <li>
-      Дата публикации: {{ post.pub_date|date:"d E Y" }}
-    </li>
-  </ul>
-  <p>{{ post.text|linebreaks }}</p>   
-  <p><a href=" {% url 'posts:post_detail' post.id%}">подробная информация</a></p> 
-  <p>{% if flag_for_link and post.group %}   
-      <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
-      {% endif %}</p> 
-  <p> {% if request.user == post.author%}
-       <a href="{% url 'posts:post_edit' post.id %}">редактировать запись</a>
-      {% endif %}</p> 
+      <li>
+        Дата публикации: {{ post.pub_date|date:"d E Y" }}
+      </li>
+    </ul>
+    <p>{{ post.text|linebreaks }}</p>  
 
+    <a href=" {% url 'posts:post_detail' post.id %}">
+      подробная информация</a>
+    <article>   
+    {% if flag_profile %}
+      <a href="{% url 'posts:profile' post.author.username %}">
+        все посты автора</a>
+    {% endif %}
+    </article> 
+  </article>   
+  {% if flag_for_link and post.group %}   
+    <a href="{% url 'posts:group_list' post.group.slug %}">
+      все записи группы {{ post.group }}</a>
+  {% endif %}
   {% if not forloop.last %}<hr>{% endif %}
 </article>

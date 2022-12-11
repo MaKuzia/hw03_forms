@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  Профайл пользователя {{author.username}}
+  Профайл пользователя {{ author.username }}
 {% endblock %}
 
 {% block content%}     
-  <h1>Все посты пользователя {{author.username}} </h1>
-  <h3>Всего постов: {{user_posts.count}} </h3>   
-  <article><p>
+  <h1> Все посты пользователя {{ author.username}} </h1>
+  <h3> Всего постов: {{user_posts.count}} </h3>   
+  <article>
     {% for post in user_posts %} 
-      {% include 'includes/post_article.html' with flag_for_link=True %}
+      {% include 'includes/post_article.html' with flag_profile=False flag_for_link=True name=False %}
+    {% endfor %}  
   </article>   
-    {% endfor %}</p>
     
   {% include 'posts/includes/paginator.html' %} 
 
