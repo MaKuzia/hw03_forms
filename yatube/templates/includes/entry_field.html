@@ -19,10 +19,5 @@
       {{ field.help_text|safe }}
     </small>
   {% endif %}
-  {% if not form.is_valid %}
-  <small>
-    {{ form.text.errors  }}
-  </small>
-  {% endif %}
 </div>
 </div>

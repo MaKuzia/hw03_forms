@@ -7,7 +7,7 @@
 {% block content %}
   <h1>{{ group.title }}</h1>
   <p>{{ group.description|linebreaks }}</p>
-  {% for post in posts_group %}
-    {% include 'includes/post_article.html' with flag_profile=True flag_for_link=False name=True%}
+  {% for post in page_obj %}
+    {% include 'includes/post_article.html' with flag_profile=True name=True %}
   {% endfor %} 
 {% endblock %}
