@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 
 from .forms import PostForm
 from .models import Group, Post
-from posts.utils import Paginator_
+from posts.utils import paginator_
 
 User = get_user_model()
 
@@ -12,7 +12,7 @@ User = get_user_model()
 def index(request):
     template = 'posts/index.html'
     context = {
-        'page_obj': Paginator_(request, Post.objects.all()),
+        'page_obj': paginator_(request, Post.objects.all()),
     }
     return render(request, template, context)
 
@@ -23,7 +23,8 @@ def group_posts(request, slug):
     posts_group = group.posts.all()
     context = {
         'group': group,
-        'page_obj': Paginator_(request, posts_group),
+        # ПАГИНАТОР!!!! я даже не подумала о нем, спасибо ☻(все удалю:))
+        'page_obj': paginator_(request, posts_group),
     }
     return render(request, template, context)
 
@@ -34,7 +35,7 @@ def profile(request, username):
     user_posts = author.posts.all()
     context = {
         'author': author,
-        'page_obj': Paginator_(request, user_posts),
+        'page_obj': paginator_(request, user_posts),
     }
     return render(request, template, context)
 
@@ -66,12 +67,12 @@ def post_edit(request, post_id):
     current_post = get_object_or_404(Post, pk=post_id)
     form = PostForm(request.POST or None, instance=current_post)
     if request.user != current_post.author:
-        raise PermissionError ("Редактировать пост может только автор")
+        raise PermissionError("Редактировать пост может только автор")
     if form.is_valid():
-         current_post.save()
-         return redirect('posts:post_detail', current_post.pk)
+        current_post.save()
+        return redirect('posts:post_detail', current_post.pk)
     context = {
         'form': form,
         'is_edit': True,
-        }
+    }
     return render(request, template, context)
